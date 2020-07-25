@@ -1,4 +1,3 @@
-import Routes from 'containers/Routes'
 import React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import express from 'express'
@@ -7,6 +6,7 @@ import { Provider } from 'react-redux'
 import getDeviceSize from 'server/helpers/getDeviceSize'
 import { configureStore } from 'reducers'
 import serialize from 'serialize-javascript'
+import App from 'App/App'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
 
@@ -27,7 +27,7 @@ server
     const markup = renderToString(
       <Provider store={store}>
         <StaticRouter context={context} location={req.url}>
-          <Routes/>
+          <App />
         </StaticRouter>
       </Provider>
     )
