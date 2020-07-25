@@ -3,13 +3,12 @@ import React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import express from 'express'
 import { renderToString } from 'react-dom/server'
-import { createStore } from 'redux'
 import { Provider } from 'react-redux'
-import { rootReducer } from 'reducers'
+import getDeviceSize from 'server/helpers/getDeviceSize'
+import { configureStore } from 'reducers'
+import serialize from 'serialize-javascript'
 
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST)
-
-const store = createStore(rootReducer)
 
 const server = express()
 server
@@ -17,6 +16,14 @@ server
   .use(express.static(process.env.RAZZLE_PUBLIC_DIR))
   .get('/*', (req, res) => {
     const context = {}
+    const device = getDeviceSize(req)
+
+    const reduxInitialState = {
+      device
+    }
+
+    const store = configureStore(reduxInitialState)
+
     const markup = renderToString(
       <Provider store={store}>
         <StaticRouter context={context} location={req.url}>
@@ -49,6 +56,9 @@ server
     </head>
     <body>
         <div id="root">${markup}</div>
+        <script>
+          window.__PRELOADED_STATE__ = ${serialize(reduxInitialState)}
+        </script>
     </body>
 </html>`
       )

@@ -3,10 +3,9 @@ import React from 'react'
 import { hydrate } from 'react-dom'
 import { Provider } from 'react-redux'
 import Routes from 'containers/Routes'
-import { createStore } from 'redux'
-import { rootReducer } from 'reducers'
+import { configureStore } from 'reducers'
 
-const store = createStore(rootReducer)
+const store = configureStore(window.__PRELOADED_STATE__)
 
 hydrate(
   <Provider store={store}>

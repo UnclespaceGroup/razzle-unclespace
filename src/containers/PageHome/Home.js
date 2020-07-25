@@ -1,7 +1,7 @@
 import React from 'react'
-import logo from 'react.svg'
 import 'containers/PageHome/Home.css'
 import { useRemoteData } from '@aic/react-remote-data-provider'
+import useDevice from 'hooks/useDevice'
 
 function Home() {
   const { response } = useRemoteData({
@@ -10,10 +10,13 @@ function Home() {
     }
   })
   console.log(response)
+
+  const device = useDevice()
+  console.log(device)
+
   return (
     <div className="Home">
       <div className="Home-header">
-        <img src={logo} className="Home-logo" alt="logo"/>
         <h2>Welcome to Razzle</h2>
       </div>
       <p className="Home-intro">
