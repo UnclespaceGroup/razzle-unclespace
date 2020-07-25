@@ -1,4 +1,4 @@
-import App from 'containers/App'
+import Routes from 'containers/Routes'
 import React from 'react'
 import { StaticRouter } from 'react-router-dom'
 import express from 'express'
@@ -20,7 +20,7 @@ server
     const markup = renderToString(
       <Provider store={store}>
         <StaticRouter context={context} location={req.url}>
-          <App/>
+          <Routes/>
         </StaticRouter>
       </Provider>
     )
