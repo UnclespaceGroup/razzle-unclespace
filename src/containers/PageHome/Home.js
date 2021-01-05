@@ -1,5 +1,5 @@
 import React from 'react'
-import 'containers/PageHome/Home.css'
+import css from './home.module.scss'
 import { useRemoteData } from '@aic/react-remote-data-provider'
 import useDevice from 'hooks/useDevice'
 
@@ -11,11 +11,10 @@ function Home() {
   })
   console.log(response)
 
-  const device = useDevice()
-  console.log(device)
+  const { currentDevice } = useDevice()
 
   return (
-    <div className="Home">
+    <div className={css[currentDevice]}>
       <h2>Сборка Unclespace</h2>
     </div>
   )
